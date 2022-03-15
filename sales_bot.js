@@ -89,12 +89,9 @@ const printSalesInfo = (date, price, signature, title, marketplace, imageURL) =>
 
 const timer = ms => new Promise(res => setTimeout(res, ms))
 
-const getMetadata = async (tokenPubKey) => {
+const getMetadata = async (mintAddress) => {
     try {
-        const addr = await Metadata.getPDA(tokenPubKey)
-        const resp = await Metadata.load(metaplexConnection, addr);
-        const { data } = await axios.get(resp.data.data.uri);
-
+        const { data } = await axios.get(`https://api-mainnet.magiceden.io/rpc/getNFTByMintAddress/{EVTSX3buKRsdvkXmHBj7Re36umxZkiXkQSNqLn7RrEZ8}`);
         return data;
     } catch (error) {
         console.log("error fetching metadata: ", error)
